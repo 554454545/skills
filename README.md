@@ -1,95 +1,80 @@
-# 个人 Skills
+# Skills
 
-个人 AI Agent Skills 集合，集中维护可复用的操作流程、参考资料和辅助脚本。每个技能通过 SKILL.md 中的名称与描述说明适用场景。
+个人 Agent Skills 集合，为 AI 编程助手提供可复用的操作流程、参考资料和工具脚本。适用于支持 SKILL.md 约定的 Codex、Claude Code、Cursor、pi 等 Agent。
 
 ## 目录结构
 
+每个 Skill 是一个独立目录，以 SKILL.md 为入口。按需添加配套文件：
+
 ```text
-skills/
-├── cf/
-│   ├── AGENTS.md
-│   └── skills/
-│       ├── cloudflare-domain-registration/
-│       └── cloudflare-tunnel/
-├── reverse-proxy/
-│   ├── AGENTS.md
-│   └── skills/
-│       └── magpie-public-gateway/
-├── personal/
-└── README.md
+<skill-name>/
+├── SKILL.md
+├── scripts/
+├── references/
+└── assets/
 ```
 
-通用技能按用途放在 cf 和 reverse-proxy 中；personal 用于需要个人环境配置的技能。当前保留两个并列目录，以保证网关技能引用 Tunnel 文档的相对链接有效。
+- `SKILL.md`：技能名称、适用场景和执行步骤。
+- `scripts/`：可执行的辅助脚本。
+- `references/`：按需读取的详细文档。
+- `assets/`：模板、图片等执行所需资源。
 
-分组仅用于组织，不代表安装工具会自动排除 personal。安装前应检查实际发现的技能列表。
+技能可以放在仓库根目录，也可以按主题分组。依赖个人机器路径、账号或本地服务的技能放入 [personal/](personal/README.md)。分组用于维护，不代表安装工具会自动排除个人技能。
 
-## 已收录技能
+## 命名与编写约定
 
-### Cloudflare
+- 目录名与 SKILL.md 中的 name 一致，使用小写英文、数字和连字符。
+- 入口必须包含 name 和 description；description 说明适用任务和触发场景。
+- 正文保留关键流程，较长说明放入 references/，通过相对 Markdown 链接引用。
+- 通用技能使用参数和占位符，避免依赖作者的绝对路径或固定账号。
+- 脚本与参考资料随技能一起维护，跨技能依赖需明确说明。
 
-| 技能 | 用途 |
-| --- | --- |
-| [域名注册](cf/skills/cloudflare-domain-registration/SKILL.md) | 注册、续费、转出域名，说明注册人信息和价格规则。 |
-| [Cloudflare Tunnel](cf/skills/cloudflare-tunnel/SKILL.md) | 创建隧道、连接本机服务、配置公网路由、排查问题和清理临时资源。 |
+```yaml
+---
+name: my-skill
+description: 说明该技能解决什么任务，以及何时应使用。
+---
+```
 
-### 网关与反代
+## 安装与使用
 
-| 技能 | 用途 |
-| --- | --- |
-| [magpie 公网网关](reverse-proxy/skills/magpie-public-gateway/SKILL.md) | 通过 Tunnel 公开网关，验证密钥鉴权并导出 Base URL、指定使用者密钥和模型。 |
-
-### 个人环境
-
-见 [个人环境技能说明](personal/README.md)。当前没有收录个人环境技能。
-
-## 使用方式
-
-让支持技能的 Agent 阅读对应的 SKILL.md，并按其步骤执行。技能提供流程指导，执行仍需本机程序、服务登录和相应权限。
-
-如使用 skills 命令行，可先列出技能，再选择安装：
+使用 skills CLI 查看仓库中可发现的技能，并按名称选择安装：
 
 ```bash
+# 查看技能
 npx skills add 554454545/skills --list
-npx skills add 554454545/skills --skill cloudflare-tunnel
-npx skills add 554454545/skills --skill magpie-public-gateway
+
+# 安装指定技能
+npx skills add 554454545/skills --skill <skill-name>
 ```
 
-上述安装命令未在本仓库发布后实测。单独安装网关技能时，需确认其引用的 Tunnel 技能也可访问；安装工具如改变目录结构，应调整引用路径，或克隆仓库保留原结构。
+安装工具的目录发现规则和目标 Agent 支持情况，以所用版本为准。包含跨目录引用的技能应同时提供所需依赖，或保留仓库原有相对结构。
 
-也可以克隆完整仓库，再让 Agent 读取入口：
+也可以克隆仓库，让 Agent 读取相应的 SKILL.md：
 
 ```bash
 git clone https://github.com/554454545/skills.git
 ```
 
-## 命名与文件约定
+Skill 提供执行方法；本地程序、服务授权和凭证由使用者自行配置。
 
-- 技能目录名使用小写英文、数字和连字符，与入口元数据的 name 保持一致。
-- SKILL.md 是必需入口，开头填写 YAML 元数据 name 和 description。
-- description 写清适用任务和触发场景，正文说明操作步骤、前置条件及验证方法。
-- scripts/ 放辅助脚本，references/ 放按需读取的详细资料，assets/ 放执行所需资源。
-- 入口保持简洁，较长的操作说明移入参考资料，并使用相对 Markdown 链接。
+## Skills
 
-```yaml
----
-name: my-skill
-description: 说明何时使用该技能，以及它解决的具体问题。
----
-```
+### Cloudflare
 
-## 上传与维护
+| Skill | 用途 |
+| --- | --- |
+| [cloudflare-domain-registration](cf/skills/cloudflare-domain-registration/SKILL.md) | 在 Cloudflare Registrar 注册、续费和转出域名。 |
+| [cloudflare-tunnel](cf/skills/cloudflare-tunnel/SKILL.md) | 使用 cloudflared 将本地服务公开到自定义域名，配置路由并排查连接问题。 |
 
-1. 每个技能使用独立目录，连同必需的脚本与参考资料一起维护。
-2. 上传前检查凭证、个人账号、实际域名、本机路径、日志及生成文件，使用占位符编写示例。
-3. 检查相对链接，并明确区分已经实测与尚未验证的步骤。
-4. 新增技能后，在本页添加用途和入口链接。
+### 网关与反代
 
-## 导出连接配置
+| Skill | 用途 |
+| --- | --- |
+| [magpie-public-gateway](reverse-proxy/skills/magpie-public-gateway/SKILL.md) | 通过 Cloudflare Tunnel 公开 magpie 网关，配置使用者密钥、验证接口并导出连接信息。 |
 
-网关技能支持按本次指定的使用者密钥名称读取当前配置，不固定使用旧密钥。详见 [导出步骤](reverse-proxy/skills/magpie-public-gateway/SKILL.md#一键导出连接配置) 和 [脱敏配置示例](reverse-proxy/skills/magpie-public-gateway/references/connection-example.txt)。
+## 添加技能
 
-实际导出文件包含完整密钥，应放在仓库之外；仓库只保留占位符模板，不上传 exports 目录。
+创建独立技能目录，编写 SKILL.md，并加入必要的脚本或参考资料。验证执行流程及文档链接后，在上方目录添加入口和用途。
 
-## 验证范围
-
-Tunnel 创建、连接、路由、DNS、公网鉴权、模型列表和一次最小对话请求已经复测；具体条件与未验证部分以各 Skill 的实测说明为准。域名购买未执行测试。
+凭证、会话、日志、本地依赖及包含真实密钥的导出结果不进入仓库。示例使用占位符；实际配置保存在仓库之外。
