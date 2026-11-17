@@ -1,40 +1,10 @@
 # 个人 Skills
 
-用于集中维护自己的 AI Agent Skills，后续逐步上传和整理。
+## 已收录
 
-## 目录结构
+- [Cloudflare 技能](cf/AGENTS.md)：域名注册和 Tunnel 创建。
+- [magpie 公网网关](reverse-proxy/AGENTS.md)：通过 Tunnel 公开网关、验证鉴权和导出连接配置。
 
-```text
-skills/
-├── <skill-name>/
-│   ├── SKILL.md
-│   ├── scripts/
-│   ├── references/
-│   └── assets/
-├── personal/
-│   └── README.md
-└── README.md
-```
+保留 cf 与 reverse-proxy 并列目录，以保证跨技能相对链接有效。每个 Skill 的入口为 SKILL.md。
 
-根目录存放可复用的通用 Skill；[个人环境说明](personal/README.md)介绍依赖本机配置的 Skill 应如何存放。当前尚未收录实际 Skill。
-
-## 上传自己的 Skill
-
-1. 为每个 Skill 创建独立目录，目录名使用小写英文和连字符。
-2. 将入口文件命名为 SKILL.md，保留原有的必要配套文件。
-3. 在入口文件开头填写 YAML 元数据，例如：
-
-```yaml
----
-name: my-skill
-description: 说明该技能适用的任务，以及何时应使用它。
----
-```
-
-4. 在正文写清执行步骤、输入输出和必要依赖；详细参考资料放入 references/。
-5. 上传前移除密钥、令牌、账号凭证、日志、会话和本地依赖目录。
-6. 收录后在下方目录添加用途及相对链接。
-
-## Skill 目录
-
-待上传自己的 Skill 后补充。
+仓库中的连接示例仅包含占位符。实际导出配置包含密钥，应保存在仓库之外。
