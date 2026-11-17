@@ -38,7 +38,3 @@ description: 说明该技能适用的任务，以及何时应使用它。
 ## Skill 目录
 
 待上传自己的 Skill 后补充。
-
-## 参考
-
-目录组织参考 [joyehuang/skills](https://github.com/joyehuang/skills)，未复制其中的技能内容。当前不指定开源许可证，后续公开或授权分发前再决定。
