@@ -73,6 +73,13 @@ Skill 提供执行方法；本地程序、服务授权和凭证由使用者自�
 | --- | --- |
 | [magpie-public-gateway](reverse-proxy/skills/magpie-public-gateway/SKILL.md) | 通过 Cloudflare Tunnel 公开 magpie 网关，配置使用者密钥、验证接口并导出连接信息。 |
 
+### Vercel
+
+| Skill | 用途 |
+| --- | --- |
+| [vercel-deploy-site](vercel/skills/vercel-deploy-site/SKILL.md) | Fork 网站项目，本地预览后免费部署到 Vercel，并绑定 Cloudflare 上的自有子域名。 |
+| [vercel-remove-site](vercel/skills/vercel-remove-site/SKILL.md) | 撤掉已部署的网站：删除 Cloudflare 子域名记录和 Vercel 项目，按需清理仓库与本地副本，并验证结果。 |
+
 ## 添加技能
 
 创建独立技能目录，编写 SKILL.md，并加入必要的脚本或参考资料。验证执行流程及文档链接后，在上方目录添加入口和用途。
